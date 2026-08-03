@@ -1,32 +1,49 @@
+import java.util.Arrays;
+
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        int[] freq1 = new int[26];
-        int[] freq2 = new int[26];
 
-        for(char ch : s1.toCharArray()){
-            freq1[ch - 'a']++;
+        int n1 = s1.length();
+        int n2 = s2.length();
+
+        if (n1 > n2) {
+            return false;
         }
 
-        int left = 0;
-        for(int right=0; right<s2.length(); right++){
-            freq2[s2.charAt(right) - 'a']++;
+        int[] count1 = new int[26];
+        int[] count2 = new int[26];
 
-            if(right-left+1 > s1.length()){
-                freq2[s2.charAt(left) - 'a']--;
-                left++;
-            }
-
-            if(right-left+1 == s1.length()){
-                boolean isMatch = true;
-                for(int i=0; i<26; i++){
-                    if(freq1[i]!=freq2[i]){
-                        isMatch = false;
-                        break;
-                    }
-                }
-                if(isMatch) return true;
-            }
+        // Store frequency of s1 and first window of s2
+        for (int i = 0; i < n1; i++) {
+            count1[s1.charAt(i) - 'a']++;
+            count2[s2.charAt(i) - 'a']++;
         }
+
+        // Check first window
+        if (Arrays.equals(count1, count2)) {
+            return true;
+        }
+
+        int j = 0;
+
+        // Slide the window
+        for (int i = n1; i < n2; i++) {
+
+            // Add new character
+            count2[s2.charAt(i) - 'a']++;
+
+            // Remove old character
+            count2[s2.charAt(j) - 'a']--;
+
+            // Compare both arrays
+            if (Arrays.equals(count1, count2)) {
+                return true;
+            }
+
+            // Move left pointer
+            j++;
+        }
+
         return false;
     }
 }
