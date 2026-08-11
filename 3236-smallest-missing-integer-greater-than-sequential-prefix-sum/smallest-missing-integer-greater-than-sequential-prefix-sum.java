@@ -2,7 +2,7 @@ class Solution {
     public int missingInteger(int[] nums) {
         int max = nums[0];
         int j = 1;
-        while(j < nums.length && nums[j] == nums[j - 1] + 1){
+        while(j < nums.length && nums[j-1]+1 == nums[j]){
             max+=nums[j];
             j++;
         }
