@@ -2,26 +2,26 @@ class Solution {
     public int[] nextLargerNodes(ListNode head) {
 
         ArrayList<Integer> list = new ArrayList<>();
-        ListNode curr = head;
-       
-        while(curr != null){
 
-            int greater = 0;
-            ListNode temp = curr.next;
-
-            while(temp != null){
-                if(temp.val > curr.val){
-                    greater = temp.val;
-                    break;
-                }
-                temp = temp.next;
-            }
-            list.add(greater);
-            curr = curr.next;
+        while(head != null){
+            list.add(head.val);
+            head = head.next;
         }
-        int[] ans = new int[list.size()];
-        for(int i=0; i<list.size(); i++){
-            ans[i] = list.get(i);
+
+        int n = list.size();
+        int[] ans = new int[n];
+
+        Stack<Integer> st = new Stack<>();
+
+        for(int i = n-1; i >= 0; i--){
+            
+            while(st.size() != 0 && st.peek() <= list.get(i))
+                st.pop();
+
+            if(st.size() != 0)
+                ans[i] = st.peek();
+            
+            st.push(list.get(i));
         }
         return ans;
     }
