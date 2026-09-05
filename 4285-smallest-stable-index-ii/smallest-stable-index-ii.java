@@ -2,17 +2,17 @@ class Solution {
     public int firstStableIndex(int[] nums, int k) {
         int n = nums.length;
         int[] prefixSum = new int[n];
-        int[] suffixSum = new int[n];
+        int[] suffixMin = new int[n];
         prefixSum[0] = nums[0];
         for(int i=1; i<n; i++){
             prefixSum[i]=Math.max(prefixSum[i-1], nums[i]);
         }
-        suffixSum[n-1] = nums[n-1];
+        suffixMin[n-1] = nums[n-1];
         for(int i=n-2; i>=0; i--){
-            suffixSum[i] = Math.min(suffixSum[i+1], nums[i]);
+            suffixMin[i] = Math.min(suffixMin[i+1], nums[i]);
         }
         for(int i=0; i<n; i++){
-            if(Math.abs(prefixSum[i] - suffixSum[i]) <= k){
+            if(Math.abs(prefixSum[i] - suffixMin[i]) <= k){
                 return i;
             }
         }
