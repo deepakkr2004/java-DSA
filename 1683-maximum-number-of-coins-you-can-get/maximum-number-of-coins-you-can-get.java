@@ -3,12 +3,8 @@ class Solution {
         int n = piles.length;
         Arrays.sort(piles);
         int result = 0;
-        int me = n-2;
-        int bob = 0;
-        while(bob < me){
-            result += piles[me];
-            me -= 2;
-            bob++;
+        for(int i=n/3;i<=n-2;i+=2){
+            result+=piles[i];
         }
         return result;
     }
