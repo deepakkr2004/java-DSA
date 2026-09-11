@@ -2,7 +2,7 @@ class Solution {
     public int totalNumbers(int[] digits) {
         boolean[] ok = new boolean[1000];
         int count =0;
-        for(int num=100; num<=998; num++){
+        for(int num=100; num<=998; num+=2){
             if(num % 2 != 0){
                 continue;
             }
